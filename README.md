@@ -1,66 +1,73 @@
-## Foundry
+# AuroraFaucet
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+AuroraFaucet 是一个用于分发本地代币的水龙头智能合约。它允许用户请求固定数量的代币，并强制执行请求之间的最小时间间隔。合约所有者可以更改分发金额和请求间隔。
 
-Foundry consists of:
+## 环境要求
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- [Foundry](https://getfoundry.sh/) - Ethereum 开发工具包
+- [Anvil](https://github.com/foundry-rs/foundry) - 本地开发链
 
-## Documentation
+## 安装
 
-https://book.getfoundry.sh/
+1. 克隆仓库并进入目录：
 
-## Usage
+   ```bash
+   git clone https://github.com/your-username/aurora-faucet.git
+   cd aurora-faucet
+   ```
 
-### Build
+2. 安装 Foundry：
 
-```shell
-$ forge build
+   ```bash
+   curl -L https://foundry.paradigm.xyz | bash
+   foundryup
+   ```
+
+3. 创建 `.env` 文件并添加以下内容：
+
+   ```plaintext
+   PRIVATE_KEY_LOCAL=0xYOUR_LOCAL_PRIVATE_KEY
+   PRIVATE_KEY_AURORA=0xYOUR_AURORA_PRIVATE_KEY
+   LOCAL_RPC_URL=http://localhost:8545
+   AURORA_RPC_URL=https://testnet.aurora.dev
+   ```
+
+## 使用
+
+### 查看 Makefile 中的命令
+
+```bash
+make help
 ```
 
-### Test
+### 构建项目
 
-```shell
-$ forge test
+```bash
+make build
 ```
 
-### Format
+### 运行测试
 
-```shell
-$ forge fmt
+```bash
+make test
 ```
 
-### Gas Snapshots
+### 部署到本地 Anvil 链
 
-```shell
-$ forge snapshot
-```
+1. 启动 Anvil：
 
-### Anvil
+   ```bash
+   anvil
+   ```
 
-```shell
-$ anvil
-```
+2. 部署合约：
 
-### Deploy
+   ```bash
+   make deploy-local
+   ```
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+### 部署到 Aurora 测试网
 
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+```bash
+make deploy-aurora
 ```
